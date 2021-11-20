@@ -1,10 +1,10 @@
 version: "3.7"
 services:
     # image project
-    curso_x:
+    laravel_eloquent:
         build: 
             args: 
-                user: carlos
+                user: gabriel
                 uid: 1000
             context: ./
             dockerfile: Dockerfile
@@ -17,7 +17,7 @@ services:
             - redis
             - queue
         networks: 
-            - cursos
+            - curso_laravel_eloquent
     
     # nginx
     nginx:
@@ -29,7 +29,7 @@ services:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks: 
-            - cursos
+            - curso_laravel_eloquent
 
     # db mysql
     mysql:
@@ -45,13 +45,13 @@ services:
         ports: 
             - 3388:3306
         networks: 
-            - cursos
+            - curso_laravel_eloquent
 
     # queue
     queue:
         build: 
             args: 
-                user: carlos
+                user: gabriel
                 uid: 1000
             context: ./
             dockerfile: Dockerfile
@@ -62,14 +62,14 @@ services:
         depends_on: 
             - redis
         networks: 
-            - cursos
+            - curso_laravel_eloquent
 
     # redis
     redis:
         image: redis:latest
         networks: 
-            - cursos
+            - curso_laravel_eloquent
 
 networks: 
-    cursos:
+    curso_laravel_eloquent:
         driver: bridge
